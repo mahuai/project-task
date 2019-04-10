@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ViewController {
 
     @GetMapping("/taskList")
-    public Object taskList(){
+    public Object taskListUI() {
         return "task-list";
+    }
+
+    @GetMapping("/addTask")
+    public Object addTaskUI() {
+        return "task-add";
     }
 
 }
