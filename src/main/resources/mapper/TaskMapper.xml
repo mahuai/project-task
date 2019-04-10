@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pro.task.dao.TaskDao">
+    <resultMap id="BaseResultMap" type="com.pro.task.entity.Task">
+        <id column="id" property="id" />
+        <result column="task_name" property="taskName" />
+        <result column="description" property="description" />
+        <result column="cron" property="cron"/>
+        <result column="class_name" property="className" />
+        <result column="status" property="status" />
+        <result column="task_group" property="taskGroup"  />
+        <result column="create_time" property="createTime"  />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id, task_name, description, cron, class_name, status,task_group, create_time, update_time
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Example_Where_Clause">
+        where 1=1
+        <if test="id != null  and id != ''">
+            and id = #{id}
+        </if>
+        <if test="taskName != null  and taskName != ''">
+            and task_name LIKE CONCAT("%",#{taskName},"%")
+        </if>
+        <if test="status != null  and status != ''">
+            and status = #{status}
+        </if>
+        <if test="taskGroup != null  and taskGroup != ''">
+            and task_group = #{taskGroup}
+        </if>
+        <if test="create_time != null  and create_time != ''">
+            and create_time = #{roleId}
+        </if>
+        <if test="update_time != null  and update_time != ''">
+            and update_time = #{roleName}
+        </if>
+    </sql>
+
+    <select id="getIdByTask" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from task
+        where id = #{id}
+    </select>
+
+    <select id="getTaskList" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List" />
+        from task
+    </select>
+
+
+    <insert id="addTask" parameterType="Object">
+      insert into task(task_name,description,cron,class_name,status,task_group,create_time,update_time)
+      values(#{taskName},#{description},#{cron},#{className},#{status},#{taskGroup},now(),null )
+    </insert>
+
+    <update id="updateBySelective" parameterType="Object">
+        update task set
+        <trim suffixOverrides=",">
+            <if test="taskName != null  and taskName != '' ">
+                task_name=#{taskName},
+            </if>
+            <if test="description != null  and description != '' ">
+                description=#{description},
+            </if>
+            <if test="nickname != null  and nickname != '' ">
+                nickname=#{nickname},
+            </if>
+            <if test="cron != null  and cron != '' ">
+                cron=#{cron},
+            </if>
+            <if test="className != null  and className != '' ">
+                role_id=#{roleId},
+            </if>
+            <if test="status != null  and status != '' ">
+                status=#{status},
+            </if>
+            <if test="update_time != null  and taskGroup != '' ">
+                task_group=#{taskGroup},
+            </if>
+            update_time=now()
+        </trim>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteTask">
+        delete from task where id = #{id}
+    </delete>
+
+    <!-- 用户表 列表总数-->
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="Object">
+        select count(1) from task
+        <include refid="Example_Where_Clause"/>
+    </select>
+
+    <!-- 查询用户表列表 -->
+    <select id="getPageList" resultMap="BaseResultMap" parameterType="Object">
+        select
+        <include refid="Base_Column_List"/>
+        from task
+        <include refid="Example_Where_Clause"/>
+
+    </select>
+
+
+</mapper>
