@@ -26,7 +26,7 @@ public class TaskManager {
             JobDetail detail = JobBuilder.newJob(object).withIdentity(task.getTaskName(), task.getTaskGroup()).build();
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(task.getTaskName(), task.getTaskGroup())
                     .startAt(DateBuilder.futureDate(1, DateBuilder.IntervalUnit.SECOND))
-                    .withSchedule(CronScheduleBuilder.cronSchedule(task.getCorn())).startNow().build();
+                    .withSchedule(CronScheduleBuilder.cronSchedule(task.getCron())).startNow().build();
             scheduler.scheduleJob(detail, trigger);
             if (!scheduler.isShutdown()) {
                 scheduler.start();

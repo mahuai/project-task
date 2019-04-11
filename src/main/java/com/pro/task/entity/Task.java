@@ -15,7 +15,7 @@ public class Task {
 
     private String description;
 
-    private String corn;
+    private String cron;
 
     private String className;
 
@@ -55,12 +55,12 @@ public class Task {
         this.description = description;
     }
 
-    public String getCorn() {
-        return corn;
+    public String getCron() {
+        return cron;
     }
 
-    public void setCorn(String corn) {
-        this.corn = corn;
+    public void setCron(String cron) {
+        this.cron = cron;
     }
 
     public String getClassName() {

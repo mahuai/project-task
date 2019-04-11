@@ -9,6 +9,5 @@ spring:
     user:
       name: admin
       password: admin
-
-  freemarker:
-    content-type: text/html
+  resources:
+    static-locations: "classpath:/static/"

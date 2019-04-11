@@ -42,7 +42,7 @@
         </if>
     </sql>
 
-    <select id="getIdByTask" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="getIdByTask" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from task
