@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author future
+ * @author ms
  * @Description:
  * @Package com.admin.service.config.interceptor project-service
- * @date: Created in 2018/7/4 14:44
+ * @date: Created in 2019/4/10 14:44
  */
 @Intercepts(value = {
         @Signature(type = Executor.class,
