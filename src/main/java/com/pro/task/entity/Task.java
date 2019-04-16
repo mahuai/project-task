@@ -9,6 +9,14 @@ import java.util.Date;
  */
 public class Task {
 
+    public Task() {
+    }
+
+    public Task(Integer id, Integer status) {
+        this.id = id;
+        this.status = status;
+    }
+
     private Integer id;
 
     private String taskName;

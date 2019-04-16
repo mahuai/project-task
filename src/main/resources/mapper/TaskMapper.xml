@@ -3,20 +3,20 @@
 
 <mapper namespace="com.pro.task.dao.TaskDao">
     <resultMap id="BaseResultMap" type="com.pro.task.entity.Task">
-        <id column="id" property="id" />
-        <result column="task_name" property="taskName" />
-        <result column="description" property="description" />
-        <result column="cron" property="cron"/>
-        <result column="class_name" property="className" />
-        <result column="status" property="status" />
-        <result column="task_group" property="taskGroup"  />
-        <result column="create_time" property="createTime"  />
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <id column="id" property="id" jdbcType="TINYINT"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="cron" property="cron" jdbcType="VARCHAR"/>
+        <result column="class_name" property="className" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="task_group" property="taskGroup" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
 
     <sql id="Base_Column_List">
-        id, task_name, description, cron, class_name, status,task_group, create_time, update_time
+        id,task_name,description,cron,class_name,status,task_group,create_time,update_time
     </sql>
 
     <!-- 查询条件 -->
@@ -44,21 +44,21 @@
 
     <select id="getIdByTask" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from task
         where id = #{id}
     </select>
 
     <select id="getTaskList" resultMap="BaseResultMap">
         select
-          <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from task
     </select>
 
 
     <insert id="addTask" parameterType="Object">
-      insert into task(task_name,description,cron,class_name,status,task_group,create_time,update_time)
-      values(#{taskName},#{description},#{cron},#{className},#{status},#{taskGroup},now(),null )
+      insert into task(task_name,description,cron,class_name,task_group,create_time)
+      values(#{taskName},#{description},#{cron},#{className},#{taskGroup},now() )
     </insert>
 
     <update id="updateBySelective" parameterType="Object">
@@ -70,19 +70,16 @@
             <if test="description != null  and description != '' ">
                 description=#{description},
             </if>
-            <if test="nickname != null  and nickname != '' ">
-                nickname=#{nickname},
-            </if>
             <if test="cron != null  and cron != '' ">
                 cron=#{cron},
             </if>
             <if test="className != null  and className != '' ">
                 role_id=#{roleId},
             </if>
-            <if test="status != null  and status != '' ">
+            <if test="status != null ">
                 status=#{status},
             </if>
-            <if test="update_time != null  and taskGroup != '' ">
+            <if test="taskGroup != null  and taskGroup != '' ">
                 task_group=#{taskGroup},
             </if>
             update_time=now()

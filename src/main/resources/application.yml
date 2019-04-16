@@ -1,3 +1,4 @@
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/task?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
@@ -11,3 +12,5 @@ spring:
       password: admin
   resources:
     static-locations: "classpath:/static/"
+server:
+  port: 8081
